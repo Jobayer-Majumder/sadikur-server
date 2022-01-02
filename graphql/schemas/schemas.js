@@ -35,14 +35,36 @@ const worksSchema = buildSchema(`
     review: Int
   }
 
+  type Users {
+    name: String
+    email: String
+    password: String
+    role: String
+  }
+  input UserInput {
+    name: String
+    email: String
+    password: String
+    role: String
+  }
+
+
+  input FindUser {
+    email: String
+    password: String
+  }
+  
   type RootQuery {  
     works: [Works]
     reviews: [Reviews]
+    users: [Users]
   }
 
   type RootMutation {
     addWorks(input: WorksInput): Works
     addReview(input: ReviewInput) : Reviews
+    addUser(input: UserInput): Users
+    findUser(input: FindUser): Users
   }
 
   schema {
