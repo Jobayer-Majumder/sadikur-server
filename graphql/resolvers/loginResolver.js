@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const loginModel = require("../../models/loginModel");
 
 
@@ -39,9 +40,16 @@ module.exports = {
         try {
             const user = await loginModel.findOne({ email: email });
             const validPassword = await bcrypt.compare(password, user.password);
-            
+
+
             if (user && validPassword) {
-                return user
+                const token = await jwt.sign({
+                    name: user.name, 
+                     email: user.email
+                }, process.env.SECRET_TOKEN, {
+                    expiresIn: '1h'
+                })
+                return {token}
             } else {
                 throw new Error('Credential not valid!')
             }

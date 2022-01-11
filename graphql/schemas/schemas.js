@@ -3,7 +3,7 @@ const {
 } = require('graphql');
 
 
-const worksSchema = buildSchema(`
+const schemas = buildSchema(`
   type Works {
     _id: ID
     title: String
@@ -48,8 +48,11 @@ const worksSchema = buildSchema(`
     role: String
   }
 
+  type FindUser {
+    token: String
+  }
 
-  input FindUser {
+  input FindUserInput {
     email: String
     password: String
   }
@@ -64,7 +67,7 @@ const worksSchema = buildSchema(`
     addWorks(input: WorksInput): Works
     addReview(input: ReviewInput) : Reviews
     addUser(input: UserInput): Users
-    findUser(input: FindUser): Users
+    findUser(input: FindUserInput): FindUser
   }
 
   schema {
@@ -75,5 +78,5 @@ const worksSchema = buildSchema(`
 `);
 
 module.exports = {
-  worksSchema
+  schemas
 }
