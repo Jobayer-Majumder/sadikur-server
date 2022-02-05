@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 
-const LoginModel = new mongoose.Schema({
+const UserModel = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -19,10 +19,10 @@ const LoginModel = new mongoose.Schema({
         type: String,
         required: true
     }
-}, {timestamps: true})
+}, {timestamps: true});
 
 
-LoginModel.pre('save', async function(next){
+UserModel.pre('save', async function(next){
     try {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(this.password, salt)
@@ -32,4 +32,4 @@ LoginModel.pre('save', async function(next){
     }
 });
 
-module.exports = mongoose.model('users', LoginModel);
+module.exports = mongoose.model('users', UserModel);

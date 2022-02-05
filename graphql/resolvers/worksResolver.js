@@ -9,14 +9,16 @@ module.exports = {
         } catch (error) {
             throw new Error('something wrong with finding your query')
         }
-
     },
+    
     addWorks: async args => {
+        const {title, description, category, file} = args.input;
+
         const works = new worksModel({
-            title: args.input.title,
-            category: args.input.category,
-            file: args.input.file,
-            publishDate: args.input.publishDate
+            title: title,
+            description: description,
+            category: category,
+            file: file,
         })
         try {
             const result = await works.save();
@@ -24,7 +26,6 @@ module.exports = {
         } catch (error) {
             throw new Error('something wrong with database')
         }
-
     }
 
 };
