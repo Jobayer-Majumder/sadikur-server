@@ -11,19 +11,21 @@ module.exports = {
     },
 
     addReview: async args => {
+        const {name, company, comment, img, review} = args.input;
+
         try {
-            const review = new ReviewsModel({
-                name: args.input.name,
-                company: args.input.company,
-                comment: args.input.comment,
-                img: args.input.img,
-                review: args.input.review
+            const newReview = new ReviewsModel({
+                name: name,
+                company: company,
+                comment: comment,
+                img: img,
+                review: review
             })
-            const result = await review.save();
+            const result = await newReview.save();
             return result
         }catch(error){
             throw new Error('something wrong with database')
         }
-    }
+    },
 
-}
+};

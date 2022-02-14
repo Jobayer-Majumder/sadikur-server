@@ -4,19 +4,24 @@ const {
 
 
 const schemas = buildSchema(`
+
+  scalar Date
+
   type Works {
     _id: ID
     title: String
+    description: String
     category: String
     file: String
-    publishDate: String
+    createdAt: Date
+    updatedAt: Date
   }
 
   input WorksInput {
     title: String
+    description: String
     category: String
     file: String
-    publishDate: String
   }
 
   type Reviews {
@@ -26,7 +31,10 @@ const schemas = buildSchema(`
     company: String
     comment: String
     review: Int
+    createdAt: Date
+    updatedAt: Date
   }
+
   input ReviewInput {
     name: String
     img: String
@@ -34,13 +42,16 @@ const schemas = buildSchema(`
     comment: String
     review: Int
   }
-
+  
   type Users {
     name: String
     email: String
     password: String
     role: String
+    createdAt: Date
+    updatedAt: Date
   }
+
   input UserInput {
     name: String
     email: String
@@ -66,7 +77,7 @@ const schemas = buildSchema(`
   type RootMutation {
     addWorks(input: WorksInput): Works
     addReview(input: ReviewInput) : Reviews
-    addUser(input: UserInput): Users
+    makeAdmin(input: UserInput): Users
     findUser(input: FindUserInput): FindUser
   }
 

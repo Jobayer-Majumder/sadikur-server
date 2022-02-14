@@ -6,6 +6,10 @@ const WorksModel = new mongoose.Schema({
         type: String,
         required: true
     },
+    description: {
+        type: String,
+        required: true
+    },
     category: {
         type: String,
         required: true
@@ -13,11 +17,7 @@ const WorksModel = new mongoose.Schema({
     file: {
         type: String,
         required: true
-    },
-    publishDate: {
-        type: String,
-        required: true
     }
-})
+}, {timestamps: true});
 
 module.exports = mongoose.model('works', WorksModel)
