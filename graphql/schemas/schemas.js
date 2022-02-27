@@ -1,11 +1,10 @@
-const {
-  buildSchema
-} = require('graphql');
+const { gql } = require('apollo-server-express');
 
 
-const schemas = buildSchema(`
+const typeDefs = gql`
 
   scalar Date
+
 
   type Works {
     _id: ID
@@ -17,11 +16,13 @@ const schemas = buildSchema(`
     updatedAt: Date
   }
 
+  scalar Upload
+
   input WorksInput {
     title: String
     description: String
     category: String
-    file: String
+    file: Upload
   }
 
   type Reviews {
@@ -67,27 +68,31 @@ const schemas = buildSchema(`
     email: String
     password: String
   }
+
+ type Book {
+  title: String
+  author: String
+ }
   
-  type RootQuery {  
+  type Query {  
     works: [Works]
     reviews: [Reviews]
     users: [Users]
+    books: [Book]
+    worksByCategory(category: String!): [Works]
   }
 
-  type RootMutation {
+  type Mutation {
     addWorks(input: WorksInput): Works
     addReview(input: ReviewInput) : Reviews
     makeAdmin(input: UserInput): Users
     findUser(input: FindUserInput): FindUser
   }
 
-  schema {
-    query: RootQuery,
-    mutation: RootMutation
-  }
+  
 
-`);
+`;
 
 module.exports = {
-  schemas
+  typeDefs
 }

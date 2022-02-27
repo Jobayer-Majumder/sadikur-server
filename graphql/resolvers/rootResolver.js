@@ -1,11 +1,24 @@
-const userResolver = require('./userResolver');
-const reviewsResolver = require('./reviewsResolver');
-const worksResolver = require('./worksResolver')
+const {
+    GraphQLUpload
+  } = require('graphql-upload');
+const userResolvers = require('./userResolver');
+const reviewResolvers = require('./reviewsResolver');
+const workResolvers = require('./worksResolver');
 
-const rootResolver = {
-    ...worksResolver,
-    ...reviewsResolver,
-    ...userResolver
+
+
+const resolvers = {
+    Query: {
+        ...workResolvers.Query,
+        ...reviewResolvers.Query,
+        ...userResolvers.Query
+    },
+    Upload: GraphQLUpload,
+    Mutation: {
+        ...workResolvers.Mutation,
+        ...reviewResolvers.Mutation,
+        ...userResolvers.Mutation
+    },
 }
 
-module.exports = rootResolver;
+module.exports = resolvers;
